@@ -1,5 +1,5 @@
 {
-  "name": "dropbox-upload",
+  "name": "@lmes/dropbox-upload",
   "version": "1.1.0",
   "description": "Oneliner to Upload Large Files to  Dropbox",
   "main": "build/main/index.js",
@@ -103,5 +103,8 @@
     "exclude": [
       "**/*.spec.js"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
