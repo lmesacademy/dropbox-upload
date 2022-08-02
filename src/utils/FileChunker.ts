@@ -63,4 +63,8 @@ export class FileChunker {
     }
     return lastChunkOffset;
   }
+
+  close() {
+    fs.closeSync(this.fileDescriptor);
+  }
 }

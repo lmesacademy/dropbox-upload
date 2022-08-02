@@ -73,6 +73,9 @@ export const upload = (config, filePath, dropboxFilePath) => {
         console.log(`uploaded ${prettyBytes(offset)}`);
       }
 
+      // Close file
+      fileChunker.close();
+
       console.log('[dropbox]: upload session completed');
       return resolve(response.result);
     } catch (err) {
