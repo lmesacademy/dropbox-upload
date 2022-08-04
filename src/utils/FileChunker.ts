@@ -50,7 +50,7 @@ export class FileChunker {
   }
 
   getNextChunk() {
-    return this.getChunk((this.nextChunkNumber += 1));
+    return this.getChunk(this.nextChunkNumber++);
   }
 
   getLastChunkOffset() {
