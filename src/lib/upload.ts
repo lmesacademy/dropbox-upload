@@ -4,7 +4,17 @@ import got from 'got';
 
 import { FileChunker, prettyBytes } from '../utils';
 
-export const upload = (config, filePath, dropboxFilePath) => {
+export interface UploadConfig {
+  appSecret: string;
+  appKey: string;
+  refreshToken: string;
+}
+
+export const upload = (
+  config: UploadConfig,
+  filePath: string,
+  dropboxFilePath: string
+) => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     console.log('[dropbox]: upload task received');
@@ -19,8 +29,8 @@ export const upload = (config, filePath, dropboxFilePath) => {
     const authResponse: any = await got
       .post('https://api.dropboxapi.com/oauth2/token', {
         body: formData,
-        username: config.username,
-        password: config.password,
+        username: config.appKey,
+        password: config.appSecret,
         throwHttpErrors: false,
       })
       .json();
