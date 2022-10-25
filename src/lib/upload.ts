@@ -14,7 +14,7 @@ export interface UploadConfig {
 }
 
 const generateAccessToken = (config: UploadConfig) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     const formData = new FormData();
 
     formData.append('refresh_token', config.refreshToken);
@@ -123,7 +123,7 @@ export const uploadDir = (
   dropboxFolderPath = stripTrailingSlash(dropboxFolderPath);
 
   console.log(`[dropbox]: 📂 upload ${folderPath} to ${dropboxFolderPath}`);
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     const files = [];
     for await (const file of walk(folderPath)) {
       files.push(file);
