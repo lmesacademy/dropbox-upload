@@ -20,7 +20,7 @@ export class FileChunker {
     );
     this.filePath = filePath;
     this.chunkSize = chunkSize;
-    this.fileDescriptor = fs.openSync(filePath);
+    this.fileDescriptor = fs.openSync(filePath, 'r');
     this.fileSize = fs.statSync(filePath).size;
     this.nextChunkNumber = 0;
     this.isFinished = false;
