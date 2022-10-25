@@ -60,7 +60,7 @@ export const upload = (
     const dropbox = new Dropbox({ accessToken: KV.get('access_token') });
 
     // initialize upload
-    console.log(`[dropbox]: upload file 🗄 ${filePath} to 🗄 ${dropboxFilePath}`);
+    console.log(`[dropbox]: 🗄 upload file ${filePath} to ${dropboxFilePath}`);
 
     try {
       const fileChunker = new FileChunker({
@@ -122,7 +122,7 @@ export const uploadDir = (
   folderPath = stripTrailingSlash(folderPath);
   dropboxFolderPath = stripTrailingSlash(dropboxFolderPath);
 
-  console.log(`[dropbox]: upload 📂 ${folderPath} to 📂 ${dropboxFolderPath}`);
+  console.log(`[dropbox]: 📂 upload ${folderPath} to ${dropboxFolderPath}`);
   return new Promise(async (resolve, reject) => {
     const files = [];
     for await (const file of walk(folderPath)) {
