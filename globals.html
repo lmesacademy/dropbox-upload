@@ -80,17 +80,63 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable"><a href="globals.html#kv" class="tsd-kind-icon">KV</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function"><a href="globals.html#generateaccesstoken" class="tsd-kind-icon">generate<wbr>Access<wbr>Token</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#prettybytes" class="tsd-kind-icon">pretty<wbr>Bytes</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#striptrailingslash" class="tsd-kind-icon">strip<wbr>Trailing<wbr>Slash</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#upload" class="tsd-kind-icon">upload</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#uploaddir" class="tsd-kind-icon">upload<wbr>Dir</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#walk" class="tsd-kind-icon">walk</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="kv" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> KV</h3>
+					<div class="tsd-signature tsd-kind-icon">KV<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NodeCache</span><span class="tsd-signature-symbol"> = new NodeCache()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lmesacademy/dropbox-upload/blob/6da73da/src/lib/upload.ts#L9">lib/upload.ts:9</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="generateaccesstoken" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> generate<wbr>Access<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>Access<wbr>Token<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/uploadconfig.html" class="tsd-signature-type">UploadConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lmesacademy/dropbox-upload/blob/6da73da/src/lib/upload.ts#L16">lib/upload.ts:16</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="interfaces/uploadconfig.html" class="tsd-signature-type">UploadConfig</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="prettybytes" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> pretty<wbr>Bytes</h3>
@@ -101,7 +147,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lmesacademy/dropbox-upload/blob/f672bde/src/utils/Helpers.ts#L1">utils/Helpers.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/lmesacademy/dropbox-upload/blob/6da73da/src/utils/Helpers.ts#L1">utils/Helpers.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -115,6 +161,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="striptrailingslash" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> strip<wbr>Trailing<wbr>Slash</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">strip<wbr>Trailing<wbr>Slash<span class="tsd-signature-symbol">(</span>str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lmesacademy/dropbox-upload/blob/6da73da/src/utils/Helpers.ts#L8">utils/Helpers.ts:8</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>str: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="upload" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> upload</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -124,7 +193,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lmesacademy/dropbox-upload/blob/f672bde/src/lib/upload.ts#L13">lib/upload.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/lmesacademy/dropbox-upload/blob/6da73da/src/lib/upload.ts#L46">lib/upload.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -140,6 +209,58 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="uploaddir" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> upload<wbr>Dir</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">upload<wbr>Dir<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/uploadconfig.html" class="tsd-signature-type">UploadConfig</a>, folderPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dropboxFolderPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lmesacademy/dropbox-upload/blob/6da73da/src/lib/upload.ts#L117">lib/upload.ts:117</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="interfaces/uploadconfig.html" class="tsd-signature-type">UploadConfig</a></h5>
+								</li>
+								<li>
+									<h5>folderPath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>dropboxFolderPath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="walk" class="tsd-anchor"></a>
+					<h3>walk</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">walk<span class="tsd-signature-symbol">(</span>dir<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="globals.html#walk" class="tsd-signature-type">walk</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lmesacademy/dropbox-upload/blob/6da73da/src/utils/Walk.ts#L4">utils/Walk.ts:4</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dir: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="globals.html#walk" class="tsd-signature-type">walk</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -161,11 +282,26 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/uploadconfig.html" class="tsd-kind-icon">Upload<wbr>Config</a>
 					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#kv" class="tsd-kind-icon">KV</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#generateaccesstoken" class="tsd-kind-icon">generate<wbr>Access<wbr>Token</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#prettybytes" class="tsd-kind-icon">pretty<wbr>Bytes</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#striptrailingslash" class="tsd-kind-icon">strip<wbr>Trailing<wbr>Slash</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#upload" class="tsd-kind-icon">upload</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#uploaddir" class="tsd-kind-icon">upload<wbr>Dir</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#walk" class="tsd-kind-icon">walk</a>
 					</li>
 				</ul>
 			</nav>

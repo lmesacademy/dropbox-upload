@@ -68,10 +68,27 @@
 					<h1>Dropbox Upload</h1>
 				</a>
 				<p>Oneliner to Upload Large Files to Dropbox</p>
-				<pre><code>import { upload } from <span class="hljs-string">&#x27;@lmes/dropbox-upload&#x27;</span>
+				<a href="#upload-single-file" id="upload-single-file" style="color: inherit; text-decoration: none;">
+					<h4>Upload single file</h4>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { upload } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@lmes/dropbox-upload&#x27;</span>;
 
+upload(
+  { <span class="hljs-attr">refreshToken</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-attr">appKey</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-attr">appSecret</span>: <span class="hljs-string">&#x27;&#x27;</span> },
+  <span class="hljs-string">&#x27;/tmp/video.mp4&#x27;</span>,
+  <span class="hljs-string">&#x27;/videos/video.mp4&#x27;</span>
+);
+</code></pre>
+				<a href="#upload-folder" id="upload-folder" style="color: inherit; text-decoration: none;">
+					<h4>Upload folder</h4>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { uploadDir } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@lmes/dropbox-upload&#x27;</span>;
 
-<span class="hljs-function"><span class="hljs-title">upload</span><span class="hljs-params">({refreshToken: <span class="hljs-string">&#x27;&#x27;</span>, appKey: <span class="hljs-string">&#x27;&#x27;</span>, appSecret: <span class="hljs-string">&#x27;&#x27;</span>}, <span class="hljs-string">&#x27;/tmp/video.mp4&#x27;</span>,<span class="hljs-string">&#x27;/videos/video.mp4&#x27;</span>)</span></span>
+uploadDir(
+  { <span class="hljs-attr">refreshToken</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-attr">appKey</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-attr">appSecret</span>: <span class="hljs-string">&#x27;&#x27;</span> },
+  <span class="hljs-string">&#x27;/files&#x27;</span>,
+  <span class="hljs-string">&#x27;/dropbox-folder&#x27;</span>
+);
 </code></pre>
 			</div>
 		</div>
@@ -91,11 +108,26 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/uploadconfig.html" class="tsd-kind-icon">Upload<wbr>Config</a>
 					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#kv" class="tsd-kind-icon">KV</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#generateaccesstoken" class="tsd-kind-icon">generate<wbr>Access<wbr>Token</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#prettybytes" class="tsd-kind-icon">pretty<wbr>Bytes</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#striptrailingslash" class="tsd-kind-icon">strip<wbr>Trailing<wbr>Slash</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#upload" class="tsd-kind-icon">upload</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#uploaddir" class="tsd-kind-icon">upload<wbr>Dir</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#walk" class="tsd-kind-icon">walk</a>
 					</li>
 				</ul>
 			</nav>
