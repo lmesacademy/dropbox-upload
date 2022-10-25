@@ -43,7 +43,8 @@
   "dependencies": {
     "dropbox": "^10.32.0",
     "form-data": "^4.0.0",
-    "got": "11"
+    "got": "11",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",

@@ -1,24 +1,19 @@
 import { Dropbox } from 'dropbox';
 import FormData from 'form-data';
 import got from 'got';
+import NodeCache from 'node-cache';
 
 import { FileChunker, prettyBytes } from '../utils';
 
+const KV = new NodeCache();
 export interface UploadConfig {
   appSecret: string;
   appKey: string;
   refreshToken: string;
 }
 
-export const upload = (
-  config: UploadConfig,
-  filePath: string,
-  dropboxFilePath: string
-) => {
-  // eslint-disable-next-line no-async-promise-executor
+const generateAccessToken = (config: UploadConfig) => {
   return new Promise(async (resolve, reject) => {
-    console.log('[dropbox]: upload task received');
-
     const formData = new FormData();
 
     formData.append('refresh_token', config.refreshToken);
@@ -26,7 +21,7 @@ export const upload = (
 
     console.log('[dropbox]: requesting access token');
 
-    const authResponse: any = await got
+    const authResponse: Record<string, any> = await got
       .post('https://api.dropboxapi.com/oauth2/token', {
         body: formData,
         username: config.appKey,
@@ -35,13 +30,36 @@ export const upload = (
       })
       .json();
 
-    console.log('[dropbox]: received access token');
+    console.log('[dropbox]: 🔒 access_token received');
 
-    // rotate and get access token using refreshToken
-    const dropbox = new Dropbox({ accessToken: authResponse.access_token });
+    KV.set(
+      'access_token',
+      authResponse.access_token,
+      authResponse.expires_in - 1000
+    );
+
+    return resolve(authResponse.access_token);
+  });
+};
+
+export const upload = (
+  config: UploadConfig,
+  filePath: string,
+  dropboxFilePath: string
+) => {
+  return new Promise(async (resolve, reject) => {
+    console.log('[dropbox]: ⌛️ upload task received');
+
+    if (!KV.get('access_token')) {
+      console.log('[dropbox]: no access_token, generating one');
+      // get access token using refreshToken
+      await generateAccessToken(config);
+    }
+
+    const dropbox = new Dropbox({ accessToken: KV.get('access_token') });
 
     // initialize upload
-    console.log(`[dropbox]: upload file '${filePath}' to '${dropboxFilePath}'`);
+    console.log(`[dropbox]: upload file 🗄 ${filePath} to 🗄 ${dropboxFilePath}`);
 
     try {
       const fileChunker = new FileChunker({
@@ -86,7 +104,7 @@ export const upload = (
       // Close file
       fileChunker.close();
 
-      console.log('[dropbox]: upload session completed');
+      console.log('[dropbox]: ✅ upload session completed');
       return resolve(response.result);
     } catch (err) {
       console.log(err);

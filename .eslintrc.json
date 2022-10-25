@@ -28,6 +28,7 @@
     "sort-imports": [
       "error",
       { "ignoreDeclarationSort": true, "ignoreCase": true }
-    ]
+    ],
+    "no-async-promise-executor": "off"
   }
 }
