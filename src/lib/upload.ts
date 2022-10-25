@@ -3,7 +3,8 @@ import FormData from 'form-data';
 import got from 'got';
 import NodeCache from 'node-cache';
 
-import { FileChunker, prettyBytes } from '../utils';
+import { FileChunker, prettyBytes, stripTrailingSlash } from '../utils';
+import { walk } from '../utils/Walk';
 
 const KV = new NodeCache();
 export interface UploadConfig {
@@ -110,5 +111,32 @@ export const upload = (
       console.log(err);
       return reject(err);
     }
+  });
+};
+
+export const uploadDir = (
+  config: UploadConfig,
+  folderPath: string,
+  dropboxFolderPath: string
+) => {
+  folderPath = stripTrailingSlash(folderPath);
+  dropboxFolderPath = stripTrailingSlash(dropboxFolderPath);
+
+  console.log(`[dropbox]: upload 📂 ${folderPath} to 📂 ${dropboxFolderPath}`);
+  return new Promise(async (resolve, reject) => {
+    const files = [];
+    for await (const file of walk(folderPath)) {
+      files.push(file);
+    }
+
+    console.log(`[dropbox]: found ${files.length} files`);
+
+    for (const file of files) {
+      const uploadFilePath = file.replace(folderPath + '/', '');
+
+      await upload(config, file, `${dropboxFolderPath}/${uploadFilePath}`);
+    }
+
+    return resolve(files);
   });
 };
