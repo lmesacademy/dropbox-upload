@@ -1,5 +1,6 @@
 import { Dropbox } from 'dropbox';
 import FormData from 'form-data';
+import fs from 'fs-extra';
 import got from 'got';
 import NodeCache from 'node-cache';
 
@@ -63,50 +64,64 @@ export const upload = (
     console.log(`[dropbox]: 🗄 upload file ${filePath} to ${dropboxFilePath}`);
 
     try {
-      const fileChunker = new FileChunker({
-        filePath,
-        chunkSize: 1024 * 1024 * 50,
-      });
+      if (fs.statSync(filePath).size < 1024 * 1024 * 150) {
+        const response = await dropbox.filesUpload({
+          path: dropboxFilePath,
+          contents: fs.readFileSync(filePath),
+        });
 
-      let contents = fileChunker.getNextChunk();
+        console.log('[dropbox]: ✅ normal upload completed');
 
-      const fileUploadSession = await dropbox.filesUploadSessionStart({
-        contents,
-        close: false,
-      });
+        return resolve(response.result);
+      } else {
+        const fileChunker = new FileChunker({
+          filePath,
+          chunkSize: 1024 * 1024 * 50,
+        });
 
-      let response;
+        let contents = fileChunker.getNextChunk();
 
-      // eslint-disable-next-line no-constant-condition
-      while (true) {
-        contents = fileChunker.getNextChunk();
-        const offset = fileChunker.getLastChunkOffset();
-
-        if (fileChunker.isFinished) {
-          response = await dropbox.filesUploadSessionFinish({
-            contents,
-            cursor: { session_id: fileUploadSession.result.session_id, offset },
-            commit: { path: dropboxFilePath, mode: { '.tag': 'overwrite' } },
-          });
-          break;
-        }
-
-        await dropbox.filesUploadSessionAppendV2({
+        const fileUploadSession = await dropbox.filesUploadSessionStart({
           contents,
-          cursor: {
-            offset,
-            session_id: fileUploadSession.result.session_id,
-          },
           close: false,
         });
-        console.log(`uploaded ${prettyBytes(offset)}`);
+
+        let response;
+
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+          contents = fileChunker.getNextChunk();
+          const offset = fileChunker.getLastChunkOffset();
+
+          if (fileChunker.isFinished) {
+            response = await dropbox.filesUploadSessionFinish({
+              contents,
+              cursor: {
+                session_id: fileUploadSession.result.session_id,
+                offset,
+              },
+              commit: { path: dropboxFilePath, mode: { '.tag': 'overwrite' } },
+            });
+            break;
+          }
+
+          await dropbox.filesUploadSessionAppendV2({
+            contents,
+            cursor: {
+              offset,
+              session_id: fileUploadSession.result.session_id,
+            },
+            close: false,
+          });
+          console.log(`uploaded ${prettyBytes(offset)}`);
+        }
+
+        // Close file
+        fileChunker.close();
+
+        console.log('[dropbox]: ✅ upload session completed');
+        return resolve(response.result);
       }
-
-      // Close file
-      fileChunker.close();
-
-      console.log('[dropbox]: ✅ upload session completed');
-      return resolve(response.result);
     } catch (err) {
       console.log(err);
       return reject(err);
