@@ -146,12 +146,19 @@ export const uploadDir = (
 
     console.log(`[dropbox]: found ${files.length} files`);
 
+    const dropboxResults = [];
+
     for (const file of files) {
       const uploadFilePath = file.replace(folderPath + '/', '');
 
-      await upload(config, file, `${dropboxFolderPath}/${uploadFilePath}`);
+      const response = await upload(
+        config,
+        file,
+        `${dropboxFolderPath}/${uploadFilePath}`
+      );
+      dropboxResults.push(response);
     }
 
-    return resolve(files);
+    return resolve(dropboxResults);
   });
 };
