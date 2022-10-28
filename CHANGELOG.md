@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/lmesacademy/dropbox-upload/compare/v1.3.0...v1.4.0) (2022-10-28)
+
+
+### Features
+
+* **upload:** use normal upload for files lesser than 150mb ([069aaaa](https://github.com/lmesacademy/dropbox-upload/commit/069aaaa1fef107f0fd26f6be4e233db990c1e29b))
+
+
+### Bug Fixes
+
+* **upload:** send dropbox result for directory upload ([e4e4f29](https://github.com/lmesacademy/dropbox-upload/commit/e4e4f299735cafc0afeb5b7e9d5b3b138b18934e))
+
 ## [1.3.0](https://github.com/lmesacademy/dropbox-upload/compare/v1.2.0...v1.3.0) (2022-10-25)
 
 
