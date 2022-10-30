@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/lmesacademy/dropbox-upload/compare/v1.4.0...v1.5.0) (2022-10-30)
+
+
+### Features
+
+* **upload:** bulk upload on directory upload ([946a146](https://github.com/lmesacademy/dropbox-upload/commit/946a146a68ee844782f293518a353ae86d81780b))
+* **upload:** files in folder upload will retry twice ([6052b22](https://github.com/lmesacademy/dropbox-upload/commit/6052b22629ae9c9dab9fc451fe0897dcce5819ef))
+* **upload:** tweak retries and concurrency ([e0d9e10](https://github.com/lmesacademy/dropbox-upload/commit/e0d9e10b5d9d4144ee72427a2692c0fbb0620c32))
+* use keyv instead of node-cache ([54b4881](https://github.com/lmesacademy/dropbox-upload/commit/54b4881dcbae8710233f44206420d635fde2f876))
+
 ## [1.4.0](https://github.com/lmesacademy/dropbox-upload/compare/v1.3.0...v1.4.0) (2022-10-28)
 
 
