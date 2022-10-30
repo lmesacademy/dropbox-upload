@@ -4,6 +4,7 @@ import fs from 'fs-extra';
 import got from 'got';
 import Keyv from 'keyv';
 import PQueue from 'p-queue';
+import { retry } from 'ts-retry-promise';
 
 import { FileChunker, prettyBytes, stripTrailingSlash } from '../utils';
 import { walk } from '../utils/Walk';
@@ -125,7 +126,7 @@ export const upload = (
         return resolve(response.result);
       }
     } catch (err) {
-      console.log(err);
+      console.log(err ? err.error : err);
       return reject(err);
     }
   });
@@ -163,8 +164,17 @@ export const uploadDir = (
       const uploadFilePath = file.replace(folderPath + '/', '');
 
       queue
-        .add(() =>
-          upload(config, file, `${dropboxFolderPath}/${uploadFilePath}`)
+        .add(async () =>
+          retry(
+            async () => {
+              await upload(
+                config,
+                file,
+                `${dropboxFolderPath}/${uploadFilePath}`
+              );
+            },
+            { retries: 2, delay: 2000 }
+          )
         )
         .catch((err) => {
           dropboxResults.push(err);

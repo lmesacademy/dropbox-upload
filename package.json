@@ -46,7 +46,8 @@
     "fs-extra": "^10.1.0",
     "got": "11",
     "keyv": "^4.5.0",
-    "p-queue": "lmesacademy/p-queue#commonjs"
+    "p-queue": "lmesacademy/p-queue#commonjs",
+    "ts-retry-promise": "^0.7.0"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",

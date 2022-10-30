@@ -29,6 +29,7 @@ specifiers:
   prettier: ^2.1.1
   standard-version: ^9.0.0
   ts-node: ^9.0.0
+  ts-retry-promise: ^0.7.0
   typedoc: ^0.19.0
   typescript: ^4.0.2
 
@@ -39,6 +40,7 @@ dependencies:
   got: 11.8.5
   keyv: 4.5.0
   p-queue: github.com/lmesacademy/p-queue/2765dd063363aa473074ff4564a77fbc77fbe0b4
+  ts-retry-promise: 0.7.0
 
 devDependencies:
   '@ava/typescript': 1.1.1
@@ -5354,6 +5356,11 @@ packages:
       typescript: 4.8.4
       yn: 3.1.1
     dev: true
+
+  /ts-retry-promise/0.7.0:
+    resolution: {integrity: sha512-x6yWZXC4BfXy4UyMweOFvbS1yJ/Y5biSz/mEPiILtJZLrqD3ZxIpzVOGGgifHHdaSe3WxzFRtsRbychI6zofOg==}
+    engines: {node: '>=6'}
+    dev: false
 
   /tsconfig-paths/3.14.1:
     resolution: {integrity: sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ==}
