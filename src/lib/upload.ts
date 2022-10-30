@@ -126,7 +126,7 @@ export const upload = (
         return resolve(response.result);
       }
     } catch (err) {
-      console.log(err ? err.error : err);
+      console.log('file:', filePath, err ? err.error : err);
       return reject(err);
     }
   });
@@ -140,7 +140,7 @@ export const uploadDir = (
   folderPath = stripTrailingSlash(folderPath);
   dropboxFolderPath = stripTrailingSlash(dropboxFolderPath);
 
-  const queue = new PQueue({ concurrency: config.concurrency || 10 });
+  const queue = new PQueue({ concurrency: config.concurrency || 5 });
 
   console.log(`[dropbox]: 📂 upload ${folderPath} to ${dropboxFolderPath}`);
   return new Promise(async (resolve) => {
@@ -173,7 +173,7 @@ export const uploadDir = (
                 `${dropboxFolderPath}/${uploadFilePath}`
               );
             },
-            { retries: 2, delay: 2000 }
+            { retries: 5, delay: 5000 }
           )
         )
         .catch((err) => {
@@ -182,7 +182,7 @@ export const uploadDir = (
     }
 
     queue.on('active', () => {
-      console.log(`[dropbox]: ⬆️ uploading ${++count} / ${queue.size}`);
+      console.log(`[dropbox]: ⬆️ uploading ${++count} / ${files.length}`);
     });
 
     queue.on('completed', (result) => {
