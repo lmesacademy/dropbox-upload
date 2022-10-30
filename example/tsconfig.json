@@ -18,5 +18,6 @@
   },
   "compilerOptions": {
     // typescript options here
-  }
+  },
+  "exclude": ["node_modules", "files"]
 }
