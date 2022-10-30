@@ -3,6 +3,7 @@ import FormData from 'form-data';
 import fs from 'fs-extra';
 import got from 'got';
 import NodeCache from 'node-cache';
+import PQueue from 'p-queue';
 
 import { FileChunker, prettyBytes, stripTrailingSlash } from '../utils';
 import { walk } from '../utils/Walk';
@@ -12,6 +13,7 @@ export interface UploadConfig {
   appSecret: string;
   appKey: string;
   refreshToken: string;
+  concurrency?: number;
 }
 
 const generateAccessToken = (config: UploadConfig) => {
@@ -137,28 +139,48 @@ export const uploadDir = (
   folderPath = stripTrailingSlash(folderPath);
   dropboxFolderPath = stripTrailingSlash(dropboxFolderPath);
 
+  const queue = new PQueue({ concurrency: config.concurrency || 10 });
+
   console.log(`[dropbox]: 📂 upload ${folderPath} to ${dropboxFolderPath}`);
   return new Promise(async (resolve) => {
+    if (!KV.get('access_token')) {
+      console.log('[dropbox]: no access_token, generating one');
+      // get access token using refreshToken
+      await generateAccessToken(config);
+    }
+
     const files = [];
+    const dropboxResults = [];
+    let count = 0;
+
     for await (const file of walk(folderPath)) {
       files.push(file);
     }
 
     console.log(`[dropbox]: found ${files.length} files`);
 
-    const dropboxResults = [];
-
     for (const file of files) {
       const uploadFilePath = file.replace(folderPath + '/', '');
 
-      const response = await upload(
-        config,
-        file,
-        `${dropboxFolderPath}/${uploadFilePath}`
-      );
-      dropboxResults.push(response);
+      queue
+        .add(() =>
+          upload(config, file, `${dropboxFolderPath}/${uploadFilePath}`)
+        )
+        .catch((err) => {
+          dropboxResults.push(err);
+        });
     }
 
-    return resolve(dropboxResults);
+    queue.on('active', () => {
+      console.log(`[dropbox]: ⬆️ uploading ${++count} / ${queue.size}`);
+    });
+
+    queue.on('completed', (result) => {
+      dropboxResults.push(result);
+    });
+
+    queue.on('idle', () => {
+      return resolve(dropboxResults);
+    });
   });
 };
