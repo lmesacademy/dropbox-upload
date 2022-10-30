@@ -2,13 +2,13 @@ import { Dropbox } from 'dropbox';
 import FormData from 'form-data';
 import fs from 'fs-extra';
 import got from 'got';
-import NodeCache from 'node-cache';
+import Keyv from 'keyv';
 import PQueue from 'p-queue';
 
 import { FileChunker, prettyBytes, stripTrailingSlash } from '../utils';
 import { walk } from '../utils/Walk';
 
-const KV = new NodeCache();
+const KV = new Keyv();
 export interface UploadConfig {
   appSecret: string;
   appKey: string;
@@ -54,13 +54,13 @@ export const upload = (
   return new Promise(async (resolve, reject) => {
     console.log('[dropbox]: ⌛️ upload task received');
 
-    if (!KV.get('access_token')) {
+    if (!(await KV.get('access_token'))) {
       console.log('[dropbox]: no access_token, generating one');
       // get access token using refreshToken
       await generateAccessToken(config);
     }
 
-    const dropbox = new Dropbox({ accessToken: KV.get('access_token') });
+    const dropbox = new Dropbox({ accessToken: await KV.get('access_token') });
 
     // initialize upload
     console.log(`[dropbox]: 🗄 upload file ${filePath} to ${dropboxFilePath}`);
@@ -143,7 +143,7 @@ export const uploadDir = (
 
   console.log(`[dropbox]: 📂 upload ${folderPath} to ${dropboxFolderPath}`);
   return new Promise(async (resolve) => {
-    if (!KV.get('access_token')) {
+    if (!(await KV.get('access_token'))) {
       console.log('[dropbox]: no access_token, generating one');
       // get access token using refreshToken
       await generateAccessToken(config);
