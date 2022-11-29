@@ -125,7 +125,7 @@ export const upload = (
         console.log('[dropbox]: ✅ upload session completed');
         return resolve(response.result);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.log('file:', filePath, err ? err.error : err);
       return reject(err);
     }
@@ -150,8 +150,8 @@ export const uploadDir = (
       await generateAccessToken(config);
     }
 
-    const files = [];
-    const dropboxResults = [];
+    const files: any[] = [];
+    const dropboxResults: any[] = [];
     let count = 0;
 
     for await (const file of walk(folderPath)) {

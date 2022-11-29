@@ -8,3 +8,5 @@ coverage
 *.log
 package-lock.json
 .env
+dist/
+tsconfig.tsbuildinfo
