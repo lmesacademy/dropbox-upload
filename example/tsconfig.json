@@ -2,22 +2,19 @@
   // This is an alias to @tsconfig/node16: https://github.com/tsconfig/bases
   "extends": "ts-node/node16/tsconfig.json",
 
-  // Most ts-node options can be specified here using their programmatic names.
-  "ts-node": {
-    // It is faster to skip typechecking.
-    // Remove if you want ts-node to do typechecking.
-    "transpileOnly": true,
-
-    "files": true,
-
-    "compilerOptions": {
-      // compilerOptions specified here will override those declared below,
-      // but *only* in ts-node.  Useful if you want ts-node and tsc to use
-      // different options with a single tsconfig.json.
-    }
-  },
   "compilerOptions": {
-    // typescript options here
+    "target": "ES2022",
+    "moduleResolution": "node",
+    "module": "ES2022",
+    "outDir": "dist/",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
-  "exclude": ["node_modules", "files"]
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "files": true
+  },
+  "exclude": ["node_modules", "files"],
+  "include": ["*.ts"]
 }
