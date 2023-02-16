@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/lmesacademy/dropbox-upload/compare/v1.5.1...v1.6.0) (2023-02-16)
+
+
+### Features
+
+* add support for selectUser, pathRoot ([f51c4f7](https://github.com/lmesacademy/dropbox-upload/commit/f51c4f728453b05615806e28812fc0b61fe6e0cf))
+
 ### [1.5.1](https://github.com/lmesacademy/dropbox-upload/compare/v1.5.0...v1.5.1) (2022-11-30)
 
 
