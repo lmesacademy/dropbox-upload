@@ -50,7 +50,9 @@ const generateAccessToken = (config: UploadConfig) => {
 export const upload = (
   config: UploadConfig,
   filePath: string,
-  dropboxFilePath: string
+  dropboxFilePath: string,
+  selectUser?: string,
+  pathRoot?: string
 ) => {
   return new Promise(async (resolve, reject) => {
     console.log('[dropbox]: ⌛️ upload task received');
@@ -61,7 +63,11 @@ export const upload = (
       await generateAccessToken(config);
     }
 
-    const dropbox = new Dropbox({ accessToken: await KV.get('access_token') });
+    const dropbox = new Dropbox({
+      accessToken: await KV.get('access_token'),
+      selectUser,
+      pathRoot,
+    });
 
     // initialize upload
     console.log(`[dropbox]: 🗄 upload file ${filePath} to ${dropboxFilePath}`);
@@ -135,7 +141,9 @@ export const upload = (
 export const uploadDir = (
   config: UploadConfig,
   folderPath: string,
-  dropboxFolderPath: string
+  dropboxFolderPath: string,
+  selectUser?: string,
+  pathRoot?: string
 ) => {
   folderPath = stripTrailingSlash(folderPath);
   dropboxFolderPath = stripTrailingSlash(dropboxFolderPath);
@@ -170,7 +178,9 @@ export const uploadDir = (
               await upload(
                 config,
                 file,
-                `${dropboxFolderPath}/${uploadFilePath}`
+                `${dropboxFolderPath}/${uploadFilePath}`,
+                selectUser,
+                pathRoot
               );
             },
             { retries: 5, delay: 5000 }
