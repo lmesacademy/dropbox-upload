@@ -1,6 +1,6 @@
 {
   "name": "@lmes/dropbox-upload",
-  "version": "1.6.0",
+  "version": "1.7.0-rc.1",
   "description": "Oneliner to Upload Large Files to  Dropbox",
   "keywords": [],
   "repository": "https://github.com/lmesacademy/dropbox-upload",

@@ -9,12 +9,15 @@ import { retry } from 'ts-retry-promise';
 import { FileChunker, prettyBytes, stripTrailingSlash } from '../utils';
 import { walk } from '../utils/Walk';
 
-const KV = new Keyv();
+const KV = new Keyv({
+  namespace: 'dropbox',
+});
 export interface UploadConfig {
   appSecret: string;
   appKey: string;
   refreshToken: string;
   concurrency?: number;
+  keyv?: Keyv;
 }
 
 const generateAccessToken = (config: UploadConfig) => {
@@ -37,11 +40,19 @@ const generateAccessToken = (config: UploadConfig) => {
 
     console.log('[dropbox]: 🔒 access_token received');
 
-    KV.set(
-      'access_token',
-      authResponse.access_token,
-      authResponse.expires_in - 1000
-    );
+    if (config.keyv) {
+      config.keyv.set(
+        'access_token',
+        authResponse.access_token,
+        authResponse.expires_in - 1000
+      );
+    } else {
+      KV.set(
+        'access_token',
+        authResponse.access_token,
+        authResponse.expires_in - 1000
+      );
+    }
 
     return resolve(authResponse.access_token);
   });
@@ -57,14 +68,18 @@ export const upload = (
   return new Promise(async (resolve, reject) => {
     console.log('[dropbox]: ⌛️ upload task received');
 
-    if (!(await KV.get('access_token'))) {
+    const accessToken = config.keyv
+      ? await config.keyv.get('access_token')
+      : await KV.get('access_token');
+
+    if (!accessToken) {
       console.log('[dropbox]: no access_token, generating one');
       // get access token using refreshToken
       await generateAccessToken(config);
     }
 
     const dropbox = new Dropbox({
-      accessToken: await KV.get('access_token'),
+      accessToken,
       selectUser,
       pathRoot,
     });
@@ -152,7 +167,11 @@ export const uploadDir = (
 
   console.log(`[dropbox]: 📂 upload ${folderPath} to ${dropboxFolderPath}`);
   return new Promise(async (resolve) => {
-    if (!(await KV.get('access_token'))) {
+    const accessToken = config.keyv
+      ? await config.keyv.get('access_token')
+      : await KV.get('access_token');
+
+    if (!accessToken) {
       console.log('[dropbox]: no access_token, generating one');
       // get access token using refreshToken
       await generateAccessToken(config);
